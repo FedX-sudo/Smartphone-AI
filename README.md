@@ -18,7 +18,7 @@
 
 ## Where is this?
 
-    github.com/Fedx-sudo/smartphone-side-chanel-attack
+    https://github.com/FedX-sudo/Smartphone-Side-Chanel-Attack-Lab/
 
 
 ## How do I find out more?
