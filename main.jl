@@ -30,7 +30,7 @@ for x in (1:29439) # yes, I know this is a very bad way of doing this, I don't c
                 y += 1
                 print("\nskipping row")
             end
-            if y == 74
+            if y == 74 # So, for some reason, halfway through the last itteration of this chunck of code, the program forgets the variable y. 
                 y += 1
             end
 
