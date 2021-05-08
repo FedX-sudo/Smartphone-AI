@@ -8,17 +8,17 @@
 
     Because I needed to make it for a progect
 
-## Howe is this?
+## How is this?
 
     Julia and CUDA
 
-## When is thi?
+## When is this?
 
     now
 
 ## Where is this?
 
-    https://github.com/FedX-sudo/Smartphone-Side-Chanel-Attack-Lab/
+    https://github.com/FedX-sudo/Smartphone-AI
 
 
 ## How do I find out more?
@@ -27,6 +27,6 @@
 
 ## How do I use this?
 
-    clone the repo, extract data.csv from the zip archive, and run the command julia main.jl
+    Clone the repo, extract data.csv from the zip archive, and run the command julia main.jl
 
     However, you do need to manually ensure that you have Julia and all the Julia packages installed for it to work.
