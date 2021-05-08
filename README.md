@@ -2,7 +2,7 @@
 
 ## What is This?
 
-    an AI to guess what key you are pressing on an android virtual keyboard
+    an AI to guess what key you are pressing on an Android virtual keyboard
 
 ## Why is This?
 
