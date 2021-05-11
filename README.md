@@ -6,7 +6,7 @@
 
 ## Why is This?
 
-    Because I needed to make it for a progect
+    Because I needed to make it for a project
 
 ## How is this?
 
@@ -27,6 +27,6 @@
 
 ## How do I use this?
 
-    Clone the repo, extract data.csv from the zip archive, and run the command julia main.jl
+    Clone the repo, extract data.csv from the zip archive, and run the command Julia main.jl
 
     However, you do need to manually ensure that you have Julia and all the Julia packages installed for it to work.
