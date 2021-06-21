@@ -11,36 +11,35 @@ print("loading random...        "); using Random; print("done! \n")
 print("loading CUDA...          "); using CUDA; print("done! \n")
 # yah ^^^thats^^^ a mess, but it looks realy pretty when compiling, so...
 print("Modules loaded! \n")
-
+CUDA.allowscalar(true) #should I use scallars, no, is this how this is meant to be used, no. do I care, no.
 
 print("loading the file... ")
 tf = CSV.read("data.csv", DataFrame) # this is a 29440X74 dataframe.
 df = CuArray{Float64}(undef, (29440, 74)) # this is a 29440X74 dataframe full of 0's. Feel free to print it if you ever wondered what 2178560 0's looked like
 
-print("creating the CUDA Array")
+print("creating the CUDA Array ")
 
-for x in (1:29439) # yes, I know this is a very bad way of doing this, I don't care
-    numberofRowsskiped = 0
-    print("starting row: ", x)
-    for y in (1:74)
-        print("here")
-        print("\nat point: ", x,"x", y, " vallue: ", tf[x,y], "number of rows skiped: ", numberofRowsskiped)
-            if typeof(tf[x,y]) == String
-                numberofRowsskiped+=1
-                y += 1
-                print("\nskipping row")
-            end
-            if y == 74 # So, for some reason, halfway through the last itteration of this chunck of code, the program forgets the variable y. 
-                y += 1
-            end
+for x in (1:29439) # yes, I know this is a very bad way of doing this, I don't care------------------------------------------|
+    print("here") #                                                                                                          |
+    numberofRowsskiped = 0 #                                                                                                 |
+    y = 0; print("\n\n", x, y, "\n\n") #                                                                                     |
+    print("starting row: ", x) #                                                                                             |
+    for y in (1:75) # ----------------------------------------------------------------------------------------------------|L |
+      if (y == 75) # ---------------------------|                                                                         |O |
+        print("\n\ndone with row. ", x, "\n")#  |IF statment                                                              |O |
+        break #                                 |                                                                         |P |
+      end # ------------------------------------|                                                                         |  |
+      print("\nat point: ", x," x ", y, " vallue:  ", tf[abs(x),abs(y)], " number of rows skiped: ", numberofRowsskiped) #|Y | Loop x
+	    if typeof(tf[abs(x),abs(y)]) == String #|                                                                           |  |
+                numberofRowsskiped+=1 #  |IF statment                                                                     |  |
+                y += 1 #                 |                                                                                |  |
+                print("\nskipping row") #|                                                                                |  |
+      end #------------------------------|                                                                                |  |
+        end #                                                                                                             |  |
+        df[abs(x),y] += tf[abs(x),y] #                                                                                    |  |
+    end # ----------------------------------------------------------------------------------------------------------------|  |
+end # -----------------------------------------------------------------------------------------------------------------------|
 
-        end
-        df[x,y] += tf[x,y]
-
-    end
-end
-
-df = CuArray{Float64}(, (29440,74))
 print("done!")
 
 print("\n \none hot encoding the data... ")
@@ -69,7 +68,7 @@ test = df[notsample, :]
 
 function build_model(; imgsize=(28,28,1), nclasses=10)
     return Chain(
- 	        Dense(prod(imgsize), 32, relu),
+            Dense(prod(imgsize), 32, relu),
             Dense(32, nclasses))
 end
 

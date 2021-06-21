@@ -1,0 +1,2 @@
+# exclude large datafiles
+*.csv
