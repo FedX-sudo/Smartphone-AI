@@ -20,39 +20,37 @@ df = CuArray{Float64}(undef, (29440, 74)) # this is a 29440X74 dataframe full of
 print("creating the CUDA Array ")
 
 for x in (1:29439) # yes, I know this is a very bad way of doing this, I don't care------------------------------------------|
-    print("here") #                                                                                                          |
-    numberofRowsskiped = 0 #                                                                                                 |
-    y = 0; print("\n\n", x, y, "\n\n") #                                                                                     |
-    print("starting row: ", x) #                                                                                             |
-    for y in (1:75) # ----------------------------------------------------------------------------------------------------|L |
-      if (y == 75) # ---------------------------|                                                                         |O |
-        print("\n\ndone with row. ", x, "\n")#  |IF statment                                                              |O |
-        break #                                 |                                                                         |P |
-      end # ------------------------------------|                                                                         |  |
-      print("\nat point: ", x," x ", y, " vallue:  ", tf[abs(x),abs(y)], " number of rows skiped: ", numberofRowsskiped) #|Y | Loop x
-	    if typeof(tf[abs(x),abs(y)]) == String #|                                                                           |  |
-                numberofRowsskiped+=1 #  |IF statment                                                                     |  |
-                y += 1 #                 |                                                                                |  |
-                print("\nskipping row") #|                                                                                |  |
-      end #------------------------------|                                                                                |  |
-        end #                                                                                                             |  |
-        df[abs(x),y] += tf[abs(x),y] #                                                                                    |  |
+    print("\nstarting row: ", x) #                                                                                             |
+    for y in (1:74) # ----------------------------------------------------------------------------------------------------|L |
+#                                                                                                                         |O |
+#                                                                                                                         |O | Loop x
+#                                                                                                                         |P |
+	    if typeof(tf[abs(x),abs(y)]) == String #--|-------------|                                                           |  |
+#                                               |IF statment  |                                                           |Y |
+                print(".")              #       |             |                                                           |  |
+      #-----------------------------------------|             |                                                           |  |
+      #                                                       |IF/ELSE Statment                                           |  |
+      else # -----------------------------|                   |                                                           |  |
+        df[abs(x),y] += tf[abs(x),y] #    |Else Statment      |                                                           |  |
+      end # ------------------------------|-------------------|                                                           |  |
     end # ----------------------------------------------------------------------------------------------------------------|  |
 end # -----------------------------------------------------------------------------------------------------------------------|
 
-print("done!")
+print("\ndone!")
 
 print("\n \none hot encoding the data... ")
 # TODO uncomment this before finnishing. I just did not want to go throught that onehot thing every time I run the program because it is increadibly ineficant and took too dang long.
 # TODO this probobly does not work anymore
+# TODO I was right, this does not work anymore, but not for the reason I thought.
 # TODO stop writing so many TODO(s)
-#for i in 1:74
+
+# for i in 1:74
 
 #    print("itteration: ", i, "... ")
 
-#   Flux.onehotbatch(df[!, i], unique(df[!, i]))
+    #Flux.onehotbatch(df[!, i], unique(df[!, i])) # yes, this is a thing.
 
-#  print("Done! \n")
+#    print("Done! \n")
 
 #end
 
@@ -92,7 +90,7 @@ else
 end # this is the ending of the else statment.
 # remember, always save your file before revcompiling.
 print("\nCreating test and train dataloaders") # Um yah that.
-# train_loader, test_loader = getdata(args, device) # this might be important? <_<
+train_loader, test_loader = getdata(args, device) # this might be important? <_<
 
 print("\nConstructing model.") # whatever that does
 model = build_model() |> device # as this line of code is executing, an AI which will evently grow to destroy the world is being created...
@@ -102,7 +100,7 @@ print("\ndefining the Optimizer") # yes this thing optimizes the other thing
 opt = ADAM(args.η) # again, not a character on the standard keyboard. Who though that was a good idea.
 
 print("\ntrainign the model ...") # completly abratrary comment: commencing modle trainng.
-
+# TODO: actualy read your TODO
 # TODO: Fix all of this VVVVVVVVVVVVVVV
 for epoch in 1:args.epochs
     print("\n training on Epoch", epoch)
@@ -114,7 +112,7 @@ for epoch in 1:args.epochs
         gs = gradient(() -> (model(test)), ps) # that
         print("\nupdating modle paramaters") # Yes, I am aware that at this point my program is more print statments than AI
         Flux.Optimise.update!(opt, ps, gs) # read the print statment in the above line.
-    end
+    end # TODO figure out how this works, because loading the file took way too long to figure out.
 
     # Report on train and test
     train_loss, train_acc = loss_and_accuracy(train_loader, model, device)
